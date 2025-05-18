@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>ticket</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
+
+        * {
+            font-family: "Noto Sans JP", sans-serif;
+        }
+
+        .outer {
+            background-color: #113ECB;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .inner {
+            max-width: 90%;
+            width: 1000px;
+            aspect-ratio: 9/11;
+            border-radius: 5px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .nav {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            max-width: 90%;
+            width: 1000px;
+            color: white;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .qrbtn {
+            background-color: #113ECB;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 4px 0px;
+        }
+
+        .big-text {
+            font-size: 1.2rem;
+        }
+
+        .small-text {
+            font-size: 0.9rem;
+            color: rgba(0, 0, 0, 0.9);
+        }
+
+        .row {
+            padding: 6px 0px;
+        }
+
+        .heading {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.9);
+            padding: 8px 0px;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="outer">
+
+        <div class="nav flex justify-between items-center">
+            <div class="">
+                <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px"
+                    fill="#EFEFEF">
+                    <path
+                        d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                </svg>
+            </div>
+            <div class="flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px"
+                    fill="#EFEFEF">
+                    <path
+                        d="M480-120q-138 0-240.5-91.5T122-440h82q14 104 92.5 172T480-200q117 0 198.5-81.5T760-480q0-117-81.5-198.5T480-760q-69 0-129 32t-101 88h110v80H120v-240h80v94q51-64 124.5-99T480-840q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z" />
+                </svg>
+                All tickets
+            </div>
+        </div>
+
+        <div class="inner bg-white">
+
+            <div class="big-text text-center font-medium">Transport Dept. of Delhi</div>
+
+            <div class="heading flex justify-between items-center big-text">
+                <div id="busnumber">DL1PD5263</div>
+                <div id="busfare">₹10.0</div>
+            </div>
+
+            <div class="row">
+                <div class="flex justify-between items-center small-text">
+                    <div>Bus Route</div>
+                    <div>Fare</div>
+                </div>
+
+                <div class="flex justify-between items-center big-text">
+                    <div id="busroute">859</div>
+                    <div id="busfarediscount" class="font-medium">₹9.0</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="flex justify-between items-center small-text">
+                    <div>Booking Time</div>
+                    <div>Bus Tickets</div>
+                </div>
+
+                <div class="flex justify-between items-center big-text">
+                    <div id="bookingTime">17 May, 25 | 07:03 PM</div>
+                    <div>1</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="small-text">
+                    <div>Starting stop</div>
+                </div>
+
+                <div class="big-text"
+                    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;">
+                    <div id="startstop">Dwarka More Metro Station (Sewak Park).</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="small-text">
+                    <div>Ending Stop</div>
+                </div>
+
+                <div class="big-text"
+                    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;">
+                    <div id="endstop">Uttam Nagar Terminal</div>
+                </div>
+            </div>
+
+            <div class="row small-text text-center">
+                <div id="ticketid">T17052025c17ed333fo</div>
+            </div>
+
+            <div class="qrbtn big-text">
+                <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px"
+                    fill="#EFEFEF">
+                    <path
+                        d="M520-120v-80h80v80h-80Zm-80-80v-200h80v200h-80Zm320-120v-160h80v160h-80Zm-80-160v-80h80v80h-80Zm-480 80v-80h80v80h-80Zm-80-80v-80h80v80h-80Zm360-280v-80h80v80h-80ZM180-660h120v-120H180v120Zm-60 60v-240h240v240H120Zm60 420h120v-120H180v120Zm-60 60v-240h240v240H120Zm540-540h120v-120H660v120Zm-60 60v-240h240v240H600Zm80 480v-120h-80v-80h160v120h80v80H680ZM520-400v-80h160v80H520Zm-160 0v-80h-80v-80h240v80h-80v80h-80Zm40-200v-160h80v80h80v80H400Zm-190-90v-60h60v60h-60Zm0 480v-60h60v60h-60Zm480-480v-60h60v60h-60Z" />
+                </svg>
+                <div>Show QR Code</div>
+            </div>
+
+        </div>
+
+        <div class="footer flex flex-col gap-6 w-full">
+            <div class="flex justify-center items-center gap-1 w-full h-4">
+                <img class="h-full object-contain" src="onv1.png" alt="">
+                <img class="h-full object-contain py-0.25" src="onv2.png" alt="">
+            </div>
+            <div class="bg-red-600 p-1 font-medium">
+                Powered by IIIT Delhi
+            </div>
+        </div>
+    </div>
+
+    <script src="constants.js"></script>
+    <script src="functions.js"></script>
+    <script>
+        $(function () {
+            console.log("jquery loaded");
+            console.log(JSON.parse(localStorage.getItem("ticket") || "{}"));
+
+            const ticket = JSON.parse(localStorage.getItem("ticket"));
+            if (!ticket) {
+                alert("No ticket found!");
+                return;
+            }
+
+            // Set ticket data into DOM elements
+            $('#busnumber').text(`${ticket.busnumber1}${ticket.busnumber2}`);
+            $('#busfare').text(`₹${parseFloat(ticket.fare).toFixed(1)}`);
+            $('#busroute').text(ticket.route);
+            $('#busfarediscount').text(`₹${parseFloat(ticket.fare * 0.9).toFixed(1)}`); // Assuming 10% discount
+            $('#bookingTime').text(ticket.time);
+            $('#startstop').text(ticket.startstop);
+            $('#endstop').text(ticket.endstop);
+            $('#ticketid').text(ticket.ticketid);
+
+            if (ticket.color) {
+                $('.outer').css('background-color', ticket.color);
+                $('.qrbtn').css('background-color', ticket.color);
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>

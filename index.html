@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>ticket</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
+
+        * {
+            font-family: "Noto Sans JP", sans-serif;
+        }
+
+        #form {
+            width: 100%;
+            height: 100vh;
+            background: #000000;
+        }
+
+        input {
+            width: 100%;
+            background-color: #000000;
+            padding: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <form id="form" class="border" action="">
+        <input list="busnumberlists" class="outline-none" type="text" name="" id="busnumber1">
+        <input type="number" id="busnumber2" class="outline-none" maxlength="4" max="9999">
+
+        <input list="busroutelists" class="outline-none" type="text" name="" id="busroute">
+        
+        <input list="startstoplists" class="outline-none" type="text" name="" id="startstop">
+        <input list="endstoplists" class="outline-none" type="text" name="" id="endstop">
+        
+        <input list="busfarelists" class="outline-none" type="text" name="" id="busfare">
+
+        <input list="buscolorlists" class="outline-none" type="text" name="" id="buscolor">
+
+        <input style="width: 100%; height: 100%;" class="outline-none" value="" type="submit" name="" id="">
+    </form>
+
+    <datalist id="busnumberlists"></datalist>
+    <datalist id="busroutelists"></datalist>
+    <datalist id="busfarelists"></datalist>
+    <datalist id="startstoplists"></datalist>
+    <datalist id="endstoplists"></datalist>
+    <datalist id="buscolorlists"></datalist>
+
+    <script src="constants.js"></script>
+    <script src="functions.js"></script>
+    <script>
+        $(function () {
+            console.log("jquery loaded");
+            console.log(JSON.parse(localStorage.getItem("ticket") || "{}"));
+
+            $('#busnumber2').on('input', function () {
+                let value = $(this).val();
+                value = value.replace(/\D/g, '');
+
+                if (value.length > 4) value = value.slice(0, 4);
+
+                // Clamp numeric value between 0 and 9999
+                let num = parseInt(value, 10);
+                if (isNaN(num)) num = '';
+                else if (num > 9999) num = 9999;
+
+                $(this).val(num);
+            });
+
+            if (Array.isArray(busnumbers)) {
+                let $datalist = $('#busnumberlists');
+                $datalist.empty();
+
+                busnumbers.forEach(function (busNumber) {
+                    $datalist.append(`<option value="${busNumber}">${busNumber}</option>`);
+                });
+            }
+
+            if (Array.isArray(routes)) {
+                let $datalist = $('#busroutelists');
+                $datalist.empty();
+
+                routes.forEach(function (route) {
+                    $datalist.append(`<option value="${route}">${route}</option>`);
+                });
+            }
+
+            if (Array.isArray(prices)) {
+                let $datalist = $('#busfarelists');
+                $datalist.empty();
+
+                prices.forEach(function (price) {
+                    $datalist.append(`<option value="${price}">${price}</option>`);
+                });
+            }
+
+            if (Array.isArray(locations)) {
+                let $datalist = $('#startstoplists');
+                $datalist.empty();
+
+                locations.forEach(location => {
+                    $datalist.append(`<option value="${location}">${location}</option>`);
+                });
+            }
+
+            if (Array.isArray(locations)) {
+                let $datalist = $('#endstoplists');
+                $datalist.empty();
+
+                locations.slice().reverse().forEach(location => {
+                    $datalist.append(`<option value="${location}">${location}</option>`);
+                });
+            }
+
+            if (typeof colors === 'object') {
+                let $datalist = $('#buscolorlists');
+                $datalist.empty(); // Clear existing entries
+
+                Object.entries(colors).forEach(function ([colorName, colorCode]) {
+                    $datalist.append(`<option value="${colorCode}">${colorName}</option>`);
+                });
+            }
+
+            $('#form').on('submit', function (e) {
+                e.preventDefault();
+
+                // Get existing ticket or use an empty object if none
+                const oldTicket = JSON.parse(localStorage.getItem("ticket")) || {};
+
+                // Build new ticket with conditional values
+                const ticket = {
+                    busnumber1: $('#busnumber1').val().trim() || oldTicket.busnumber1 || "",
+                    busnumber2: $('#busnumber2').val().trim() || oldTicket.busnumber2 || "",
+                    route: $('#busroute').val().trim() || oldTicket.route || "",
+                    fare: $('#busfare').val().trim() || oldTicket.fare || "",
+                    startstop: $('#startstop').val().trim() || oldTicket.startstop || "",
+                    endstop: $('#endstop').val().trim() || oldTicket.endstop || "",
+                    color: $('#buscolor').val().trim() || oldTicket.color || "",
+                    time: getFormattedBookingTime(),
+                    ticketid: generateTicketId(),
+                };
+
+                localStorage.setItem("ticket", JSON.stringify(ticket));
+                location.reload();
+            });
+
+
+
+        })
+    </script>
+</body>
+
+</html>
