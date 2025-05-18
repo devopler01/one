@@ -9,32 +9,41 @@ function generateTicketId() {
   const datePart = `${day}${month}${year}`; // e.g., "17052025"
 
   // Generate a random alphanumeric suffix (10 chars)
-  const randomSuffix = Array.from(
-    { length: 10 },
-    () => Math.random().toString(36)[2] // Get one random base36 char
+  const randomSuffix = Array.from({ length: 10 }, () =>
+    Math.floor(Math.random() * 16).toString(16)
   ).join("");
 
   return `T${datePart}${randomSuffix}`;
 }
 
 function getFormattedBookingTime() {
-    const now = new Date();
+  const now = new Date();
 
-    const day = String(now.getDate()).padStart(2, '0');
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const month = monthNames[now.getMonth()];
-    const year = String(now.getFullYear()).slice(-2); // → "25"
+  const day = String(now.getDate()).padStart(2, "0");
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const month = monthNames[now.getMonth()];
+  const year = String(now.getFullYear()).slice(-2); // → "25"
 
-    let hours = now.getHours();
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12; // Convert 0 to 12
-    const paddedHours = String(hours).padStart(2, '0'); // → "08", "01", etc.
+  let hours = now.getHours();
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12; // Convert 0 to 12
+  const paddedHours = String(hours).padStart(2, "0"); // → "08", "01", etc.
 
-    const timePart = `${paddedHours}:${minutes} ${ampm}`;
+  const timePart = `${paddedHours}:${minutes} ${ampm}`;
 
-    return `${day} ${month}, ${year} | ${timePart}`;
+  return `${day} ${month}, ${year} | ${timePart}`;
 }
-
-
